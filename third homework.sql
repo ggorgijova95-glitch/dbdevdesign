@@ -82,8 +82,6 @@ INSERT INTO customer (email, full_name, created_at) VALUES
     ('elena@example.com', 'Elena Kostova', '2024-06-01 10:00:00+00'),
     ('filip@example.com', 'Filip Trajkov', '2024-09-12 16:45:00+00');
 
-SELECT * FROM customer
-
 INSERT INTO customer_profile (customer_id, loyalty_tier, newsletter_opt_in) VALUES
     (1, 'gold', TRUE),
     (2, 'silver', FALSE),
@@ -92,15 +90,11 @@ INSERT INTO customer_profile (customer_id, loyalty_tier, newsletter_opt_in) VALU
     (5, 'gold', TRUE),
     (6, 'silver', TRUE);
 
-SELECT * FROM customer_profile
-
 INSERT INTO category (name, slug) VALUES
     ('Electronics', 'electronics'),
     ('Books', 'books'),
     ('Home', 'home'),
     ('Sports', 'sports');
-
-SELECT * FROM category
 
 INSERT INTO product (category_id, sku, name, unit_price, is_active) VALUES
     (1, 'SKU-E-001', 'Wireless earbuds', 79.99, TRUE),
@@ -114,16 +108,12 @@ INSERT INTO product (category_id, sku, name, unit_price, is_active) VALUES
     (4, 'SKU-S-002', 'Running shoes', 89.99, TRUE),
     (1, 'SKU-E-004', 'Phone case', 15.00, TRUE);
 
-SELECT * FROM product
-
 INSERT INTO tag (name) VALUES
     ('bestseller'),
     ('gift'),
     ('eco'),
     ('new'),
     ('clearance');
-
-SELECT * FROM tag
 
 INSERT INTO product_tag (product_id, tag_id) VALUES
     (1, 1), (1, 4),
@@ -135,8 +125,6 @@ INSERT INTO product_tag (product_id, tag_id) VALUES
     (9, 1), (9, 5),
     (10, 4);
 
-SELECT * FROM product_tag
-
 INSERT INTO address (customer_id, line1, city, country_code, is_default) VALUES
     (1, 'Partizanska 12', 'Skopje', 'MK', TRUE),
     (1, 'Bul. VMRO 5', 'Bitola', 'MK', FALSE),
@@ -145,8 +133,6 @@ INSERT INTO address (customer_id, line1, city, country_code, is_default) VALUES
     (4, 'GTC L2', 'Skopje', 'MK', TRUE),
     (5, 'Str. Nikola Karev 20', 'Ohrid', 'MK', TRUE),
     (6, 'Ul. Goce 1', 'Kumanovo', 'MK', TRUE);
-
-SELECT * FROM address
 
 INSERT INTO shop_order (customer_id, order_number, placed_at, status, shipping_address_id) VALUES
     (1, 'ORD-2024-0001', '2024-03-01 10:00:00+00', 'delivered', 1),
@@ -157,8 +143,6 @@ INSERT INTO shop_order (customer_id, order_number, placed_at, status, shipping_a
     (5, 'ORD-2025-0006', '2025-02-01 14:20:00+00', 'shipped', 6),
     (6, 'ORD-2025-0007', '2025-02-14 11:00:00+00', 'new', 7),
     (4, 'ORD-2025-0008', '2025-02-15 16:45:00+00', 'paid', 5);
-
-SELECT * FROM shop_order
 
 INSERT INTO order_line (order_id, product_id, quantity, line_total) VALUES
     (1, 1, 1, 79.99),
@@ -174,12 +158,8 @@ INSERT INTO order_line (order_id, product_id, quantity, line_total) VALUES
     (7, 5, 3, 73.50),
     (8, 7, 2, 37.50);
 
-SELECT * FROM order_line
-
 INSERT INTO order_shipment (order_id, carrier, tracking_code, shipped_at) VALUES
     (1, 'PostMK', 'PMK-10001', '2024-03-02 08:00:00+00'),
     (2, 'ExpressMK', 'EX-22002', '2024-05-11 07:00:00+00'),
     (4, 'PostMK', 'PMK-10044', '2024-06-21 09:30:00+00'),
     (6, 'ExpressMK', 'EX-99006', '2025-02-02 10:00:00+00');
-
-SELECT * FROM order_shipment
