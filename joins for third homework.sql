@@ -1,3 +1,73 @@
+-- =========================
+-- PART 1 — RELATIONSHIPS
+-- =========================
+
+-- PRIMARY KEYS:
+-- Each table uses id as primary key (unique row identifier)
+
+-- RELATIONSHIPS + CARDINALITY:
+
+-- customer_profile.customer_id → customer.id
+-- ONE-TO-ONE (each customer has one profile)
+
+-- product.category_id → category.id
+-- MANY-TO-ONE (many products belong to one category)
+
+-- product_tag.product_id → product.id
+-- product_tag.tag_id → tag.id
+-- MANY-TO-MANY (products can have many tags, tags can belong to many products)
+
+-- address.customer_id → customer.id
+-- ONE-TO-MANY (one customer can have multiple addresses)
+
+-- shop_order.customer_id → customer.id
+-- ONE-TO-MANY (one customer can have multiple orders)
+
+-- shop_order.shipping_address_id → address.id
+-- MANY-TO-ONE (many orders can use the same address)
+
+-- order_line.order_id → shop_order.id
+-- ONE-TO-MANY (one order has many order lines)
+
+-- order_line.product_id → product.id
+-- MANY-TO-ONE (many order lines refer to one product)
+
+-- order_shipment.order_id → shop_order.id
+-- ONE-TO-ONE (each order has at most one shipment)
+
+-- =========================
+-- DESIGN JUSTIFICATION
+-- =========================
+
+-- Primary keys are placed on all "id" columns because:
+-- each table needs a unique identifier for its rows.
+
+-- Foreign keys are placed where relationships exist:
+
+-- customer_profile.customer_id:
+-- separates optional profile data from customer
+
+-- product.category_id:
+-- avoids repeating category names (normalization)
+
+-- product_tag:
+-- needed for many-to-many relation between product and tag
+
+-- shop_order.customer_id:
+-- links orders to customers
+
+-- order_line:
+-- resolves many-to-many between orders and products
+
+-- order_shipment:
+-- separates shipping data from orders (flexibility)
+
+-- product_tag does not need its own id:
+-- (product_id, tag_id) together form a composite key
+
+-- =========================
+-- PART 2 — Joins
+-- =========================
 -- A1
 SELECT p.name, c.name AS category_name
 FROM product p

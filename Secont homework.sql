@@ -53,3 +53,90 @@ INSERT INTO cafeteria_menu_item (
     ('FD-018', 'Lamb Vindaloo', 'Vindaloo', 'Grill', 'Tandoor corner', 5, 14.20, '2023-04-20', '2025-01-16 02:00:00+00', NULL, TRUE, 3, 'K-ALFA'),
     ('FD-019', 'Buffalo Cauliflower', 'Buffalo', 'Sides', 'Fry station', 4, 7.90, '2024-11-11', '2025-01-15 17:45:00+00', 'vegan', FALSE, 0, 'K-BETA'),
     ('FD-020', 'Shrimp Tacos', 'Tacos', 'Grill', 'Grill line', 4, 12.90, '2024-05-05', '2025-01-16 05:30:00+00', 'shellfish', TRUE, 1, 'K-GAMM');
+
+	-- =========================
+-- PART 2 — SELECT QUERIES
+-- =========================
+
+-- Task 1: Very spicy
+SELECT code, dish_name, price_eur, spice_level
+FROM cafeteria_menu_item
+WHERE spice_level >= 4
+ORDER BY price_eur DESC, dish_name ASC;
+
+-- Task 2: Oven section (contains "Hollow", case-insensitive)
+SELECT code, dish_name, category, kitchen_section
+FROM cafeteria_menu_item
+WHERE kitchen_section ILIKE '%hollow%'
+ORDER BY category, code;
+
+-- Task 3: Late-night trouble
+SELECT code, dish_name, remake_count
+FROM cafeteria_menu_item
+WHERE is_late_night = TRUE AND remake_count > 0
+ORDER BY remake_count DESC;
+
+-- Task 4: Mid price band (5 < price < 12)
+SELECT code, dish_name, price_eur, added_to_menu
+FROM cafeteria_menu_item
+WHERE price_eur > 5 AND price_eur < 12
+ORDER BY added_to_menu ASC;
+
+-- Task 5: Restock check
+SELECT code, dish_name, last_restocked_at
+FROM cafeteria_menu_item
+WHERE last_restocked_at < '2025-01-16 00:00:00+00'
+ORDER BY last_restocked_at ASC;
+
+-- Task 6: Group stats
+SELECT 
+    category,
+    COUNT(*) AS total_dishes,
+    ROUND(AVG(price_eur), 2) AS avg_price
+FROM cafeteria_menu_item
+GROUP BY category
+HAVING COUNT(*) >= 2
+ORDER BY total_dishes DESC, category ASC;
+
+-- Task 7: Station workload
+SELECT 
+    prep_station_code,
+    SUM(remake_count) AS total_remakes,
+    COUNT(DISTINCT category) AS category_count
+FROM cafeteria_menu_item
+GROUP BY prep_station_code
+ORDER BY total_remakes DESC;
+
+-- Task 8: Menu size
+SELECT COUNT(*) AS total_dishes
+FROM cafeteria_menu_item;
+
+-- Task 9: Average heat
+SELECT ROUND(AVG(spice_level), 2) AS avg_spice_level
+FROM cafeteria_menu_item;
+
+-- Task 10: Total remakes
+SELECT SUM(remake_count) AS total_remakes
+FROM cafeteria_menu_item;
+
+-- Task 11: Price range
+SELECT 
+    MIN(price_eur) AS min_price,
+    MAX(price_eur) AS max_price
+FROM cafeteria_menu_item;
+
+-- Task 12: Kitchen sections count
+SELECT COUNT(DISTINCT kitchen_section) AS total_sections
+FROM cafeteria_menu_item;
+
+-- Task 13: Late-night tally
+SELECT COUNT(*) AS late_night_dishes
+FROM cafeteria_menu_item
+WHERE is_late_night = TRUE;
+
+-- Task 14: Second page of spicy dishes (page size = 5)
+SELECT code, dish_name, price_eur, spice_level
+FROM cafeteria_menu_item
+WHERE spice_level >= 4
+ORDER BY price_eur DESC, dish_name ASC
+LIMIT 5 OFFSET 5;

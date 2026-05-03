@@ -67,12 +67,16 @@ CREATE TABLE order_line (
 );
 
 CREATE TABLE order_shipment (
-    id          SERIAL,
-    order_id    INTEGER,
-    carrier     TEXT,
+    id            SERIAL,
+    order_id      INTEGER,
+    carrier       TEXT,
     tracking_code TEXT,
-    shipped_at  TIMESTAMPTZ
+    shipped_at    TIMESTAMPTZ
 );
+
+-- =========================
+-- INSERT DATA
+-- =========================
 
 INSERT INTO customer (email, full_name, created_at) VALUES
     ('ana@example.com', 'Ana Stojkovska', '2024-01-10 09:00:00+00'),
